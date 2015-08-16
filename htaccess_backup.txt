@@ -1,0 +1,23 @@
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+php_value upload_max_filesize 40M
+php_value post_max_size 42M
+
+ErrorDocument 404 /templates/404error.html
+
+RewriteRule ^galleries$ ?action=galleries [L]
+RewriteRule ^galleries/([0-9]+)$ ?action=galleries&page=$1 [L]
+RewriteRule ^galleries/([^.]+)-([0-9]+)$ ?action=viewGallery&galleryId=$2&galleryTitle=$1 [L]
+RewriteRule ^galleries/([^.]+)-([0-9]+)/([0-9]+)$ ?action=viewGallery&galleryId=$2&galleryTitle=$1&page=$3 [L]
+
+RewriteRule ^([^.]+)/([^.]+)-([0-9]+)$ ?action=viewArticle&categoryName=$1&articleId=$3&articleTitle=$2 [L]
+RewriteRule ^([^.]+)/([0-9]+)$ ?action=archive&categoryName=$1&page=$2 [L] 
+
+RewriteRule ^([^.]+)/$ ?action=archive&categoryName=$1 [L]
+RewriteRule ^([^.]+)$ ?action=archive&categoryName=$1 [L]
+
+
+
